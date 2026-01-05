@@ -117,7 +117,7 @@ export default function AddAssetForm() {
                             onFocus={() => symbol && setShowSuggestions(true)}
                             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                             placeholder="Search stocks..."
-                            className="w-full uppercase pl-10"
+                            className="w-full uppercase pl-12"
                             disabled={isSubmitting}
                             maxLength={10}
                             autoComplete="off"
@@ -231,8 +231,8 @@ export default function AddAssetForm() {
             {message && (
                 <div
                     className={`mt-3 p-2.5 rounded-lg text-sm animate-fadeIn ${message.type === 'success'
-                            ? 'bg-[var(--color-success)]/20 text-[var(--color-success)]'
-                            : 'bg-[var(--color-danger)]/20 text-[var(--color-danger)]'
+                        ? 'bg-[var(--color-success)]/20 text-[var(--color-success)]'
+                        : 'bg-[var(--color-danger)]/20 text-[var(--color-danger)]'
                         }`}
                 >
                     {message.text}

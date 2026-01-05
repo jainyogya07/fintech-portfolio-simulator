@@ -9,6 +9,7 @@ const THEMES = {
         colors: {
             '--color-bg-primary': '#f8fafc',
             '--color-bg-secondary': '#ffffff',
+            '--color-bg-card': 'rgba(255, 255, 255, 0.9)',
             '--color-text-primary': '#1a1a2e',
             '--color-text-secondary': '#64748b',
             '--color-border': '#e2e8f0',
@@ -25,6 +26,7 @@ const THEMES = {
         colors: {
             '--color-bg-primary': '#0f0f1a',
             '--color-bg-secondary': '#1a1a2e',
+            '--color-bg-card': 'rgba(30, 41, 59, 0.8)',
             '--color-text-primary': '#f8fafc',
             '--color-text-secondary': '#94a3b8',
             '--color-border': '#2d2d44',
@@ -41,6 +43,7 @@ const THEMES = {
         colors: {
             '--color-bg-primary': '#030712',
             '--color-bg-secondary': '#111827',
+            '--color-bg-card': 'rgba(17, 24, 39, 0.8)',
             '--color-text-primary': '#f9fafb',
             '--color-text-secondary': '#9ca3af',
             '--color-border': '#1f2937',
@@ -57,6 +60,7 @@ const THEMES = {
         colors: {
             '--color-bg-primary': '#0c1929',
             '--color-bg-secondary': '#132f4c',
+            '--color-bg-card': 'rgba(19, 47, 76, 0.8)',
             '--color-text-primary': '#e3f2fd',
             '--color-text-secondary': '#90caf9',
             '--color-border': '#1e4976',
