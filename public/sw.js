@@ -17,7 +17,14 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             console.log('[SW] Caching static assets');
-            return cache.addAll(STATIC_ASSETS);
+            // Attempt to cache all, but don't fail install if one fails (like manifest 401 on Vercel)
+            const stack = STATIC_ASSETS.map(url =>
+                fetch(url).then(response => {
+                    if (!response.ok) throw new Error(`Failed to fetch ${url}`);
+                    return cache.put(url, response);
+                }).catch(err => console.warn('[SW] Caching failed for:', url, err))
+            );
+            return Promise.all(stack);
         })
     );
     self.skipWaiting();
