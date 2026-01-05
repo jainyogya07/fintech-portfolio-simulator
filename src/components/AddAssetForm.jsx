@@ -117,7 +117,7 @@ export default function AddAssetForm() {
                             onFocus={() => symbol && setShowSuggestions(true)}
                             onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                             placeholder="Search stocks..."
-                            className="w-full uppercase pl-12"
+                            className="w-full uppercase !pl-14"
                             disabled={isSubmitting}
                             maxLength={10}
                             autoComplete="off"
