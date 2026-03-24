@@ -45,19 +45,18 @@ export default function BottomNav() {
                 {NAV_ITEMS.map(item => (
                     <button
                         key={item.id}
+                        type="button"
                         onClick={() => scrollToSection(item)}
-                        className={`flex flex-col items-center gap-0.5 px-4 py-2 rounded-xl transition-all ${activeTab === item.id
+                        className={`relative flex flex-col items-center gap-0.5 rounded-lg px-3 py-2 transition-colors ${activeTab === item.id
                                 ? 'text-[var(--color-primary)]'
                                 : 'text-[var(--color-text-secondary)]'
                             }`}
                     >
-                        <span className={`text-xl transition-transform ${activeTab === item.id ? 'scale-110' : ''}`}>
-                            {item.icon}
-                        </span>
-                        <span className="text-[10px] font-medium">{item.label}</span>
-                        {activeTab === item.id && (
-                            <div className="absolute bottom-1 w-1 h-1 rounded-full bg-[var(--color-primary)]" />
-                        )}
+                        <span className="text-lg leading-none">{item.icon}</span>
+                        <span className="text-[10px] font-semibold tracking-wide">{item.label}</span>
+                        {activeTab === item.id ? (
+                            <span className="absolute bottom-1 h-0.5 w-6 rounded-full bg-[var(--color-primary)]" />
+                        ) : null}
                     </button>
                 ))}
             </div>

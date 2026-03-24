@@ -44,10 +44,11 @@ export default function ExportButton() {
             </button>
 
             {/* Dropdown */}
-            <div className="absolute right-0 top-full mt-1 w-40 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+            <div className="invisible absolute right-0 top-full z-50 mt-1 w-44 rounded-md border border-[var(--color-border)] bg-[var(--color-bg-secondary)] py-0.5 opacity-0 shadow-md transition-all group-hover:visible group-hover:opacity-100">
                 <button
+                    type="button"
                     onClick={() => handleExport('download')}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-bg-primary)] rounded-t-lg flex items-center gap-2"
+                    className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-[var(--color-text-primary)] hover:bg-[var(--color-bg-primary)]"
                 >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -55,8 +56,9 @@ export default function ExportButton() {
                     Download HTML
                 </button>
                 <button
+                    type="button"
                     onClick={() => handleExport('print')}
-                    className="w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-bg-primary)] rounded-b-lg flex items-center gap-2"
+                    className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-[var(--color-text-primary)] hover:bg-[var(--color-bg-primary)]"
                 >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />

@@ -35,51 +35,56 @@ import PullToRefresh from './components/PullToRefresh';
 import MobilePortfolioHeader from './components/MobilePortfolioHeader';
 import FloatingActionButton from './components/FloatingActionButton';
 import ErrorBoundary from './components/ErrorBoundary';
+import SectionHeader from './components/SectionHeader';
 import './index.css';
 
 function Header() {
   const { refreshPrices, isRefreshing, lastUpdated } = usePortfolio();
 
   return (
-    <header className="border-b border-[var(--color-border)] bg-[var(--color-bg-primary)]/80 backdrop-blur-sm sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[var(--color-primary)] to-[#a855f7] flex items-center justify-center">
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-              </svg>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold gradient-text">Portfolio Simulator</h1>
-              <p className="text-xs text-[var(--color-text-secondary)]">Professional Financial Planning</p>
-            </div>
+    <header className="sticky top-0 z-50 border-b border-[var(--color-border)] bg-[var(--color-bg-primary)]/90 backdrop-blur-md supports-[backdrop-filter]:bg-[var(--color-bg-primary)]/75">
+      <div className="page-shell flex items-center justify-between gap-4 px-4 sm:px-6 py-3 sm:py-4">
+        <div className="flex min-w-0 items-center gap-3">
+          <div
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-bg-secondary)] text-[var(--color-primary)] shadow-[var(--shadow-surface)]"
+            aria-hidden
+          >
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v18h18M7 16l4-4 4 4 6-7" />
+            </svg>
           </div>
+          <div className="min-w-0">
+            <h1 className="truncate text-[0.9375rem] font-semibold tracking-tight text-[var(--color-text-primary)]">
+              Portfolio Simulator
+            </h1>
+            <p className="truncate text-xs text-[var(--color-text-secondary)]">Live holdings · risk · scenarios</p>
+          </div>
+        </div>
 
-          <div className="flex items-center gap-2">
-            {lastUpdated && (
-              <span className="text-xs text-[var(--color-text-secondary)] hidden sm:block mr-2">
-                Updated {lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-              </span>
-            )}
-            <ThemeToggle />
-            <ExportButton />
-            <button
-              onClick={refreshPrices}
-              disabled={isRefreshing}
-              className="btn-icon flex items-center gap-2 px-3 py-2"
+        <div className="flex shrink-0 items-center gap-2">
+          {lastUpdated ? (
+            <span className="hidden text-xs tabular-nums text-[var(--color-text-secondary)] sm:inline">
+              {lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </span>
+          ) : null}
+          <ThemeToggle />
+          <ExportButton />
+          <button
+            type="button"
+            onClick={refreshPrices}
+            disabled={isRefreshing}
+            className="btn-icon flex items-center gap-2 px-3 py-2"
+          >
+            <svg
+              className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
             >
-              <svg
-                className={`w-4 h-4 ${isRefreshing ? 'animate-spin' : ''}`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-              </svg>
-              <span className="hidden sm:inline">Refresh</span>
-            </button>
-          </div>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            <span className="hidden sm:inline text-sm font-medium">Sync</span>
+          </button>
         </div>
       </div>
     </header>
@@ -91,153 +96,132 @@ function Dashboard() {
 
   return (
     <PullToRefresh onRefresh={refreshPrices}>
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        {/* Mobile Portfolio Summary */}
+      <main className="page-shell px-4 sm:px-6 py-8 sm:py-10">
         <MobilePortfolioHeader />
 
-        {/* Portfolio Overview Section */}
-        <div id="portfolio" className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 mb-6 sm:mb-8 scroll-mt-28">
-          {/* Left Column - Input & Summary */}
-          <div className="lg:col-span-4 space-y-6">
-            <AddAssetForm />
-            <SummaryCard />
-            <RiskMeter />
-          </div>
-
-          {/* Right Column - Table & Charts */}
-          <div className="lg:col-span-8 space-y-6">
-            <PortfolioTable />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <AllocationChart />
-              <VaRDisplay />
+        {/* —— Primary workbench — dense left rail + wide canvas —— */}
+        <section id="portfolio" className="scroll-mt-28 mb-16 sm:mb-20 lg:mb-24">
+          <SectionHeader
+            kicker="Workbench"
+            title="Portfolio"
+            description="Add positions, review exposure, then drill into risk and scenarios below."
+          />
+          <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-8">
+            <div className="space-y-6 lg:col-span-4 lg:sticky lg:top-28">
+              <AddAssetForm />
+              <SummaryCard />
+              <RiskMeter />
+            </div>
+            <div className="space-y-6 lg:col-span-8">
+              <PortfolioTable />
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
+                <div className="md:col-span-7">
+                  <AllocationChart />
+                </div>
+                <div className="md:col-span-5">
+                  <VaRDisplay />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Phase 2: Advanced Risk Analysis Section */}
-        <div id="risk" className="space-y-6 mb-8 scroll-mt-28">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-            <h2 className="text-lg font-semibold text-[var(--color-text-secondary)]">Advanced Risk Analysis</h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
+        {/* —— Risk: hero module + supporting metrics —— */}
+        <section className="mb-16 space-y-10 sm:mb-20 lg:mb-24 lg:space-y-12">
+          <div id="risk" className="scroll-mt-28">
+            <SectionHeader
+              kicker="Risk engine"
+              title="Stress, variance, and correlation"
+              description="Simulation-led view of how this portfolio behaves under uncertainty and drawdowns."
+            />
+            <div className="space-y-6 lg:space-y-8">
+              <MonteCarloSimulator />
+              <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+                <div className="lg:col-span-5">
+                  <RiskMetrics />
+                </div>
+                <div className="lg:col-span-7">
+                  <CorrelationHeatmap />
+                </div>
+              </div>
+              <DrawdownChart />
+            </div>
           </div>
+        </section>
 
-          {/* Monte Carlo - Full Width */}
-          <MonteCarloSimulator />
-
-          {/* Risk Metrics */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <RiskMetrics />
-            <CorrelationHeatmap />
-          </div>
-
-          {/* Historical Drawdown - Full Width */}
-          <DrawdownChart />
-        </div>
-
-        {/* Phase 3: Scenario Planning & Goals */}
-        <div id="scenarios" className="space-y-6 mb-8 scroll-mt-28">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-            <h2 className="text-lg font-semibold text-[var(--color-text-secondary)]">Scenario Planning & Goals</h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-          </div>
-
-          {/* Crash Simulator - Full Width */}
+        {/* —— Scenarios: narrative tools — full width + paired panels —— */}
+        <section id="scenarios" className="scroll-mt-28 mb-16 space-y-6 sm:mb-20 lg:mb-24 lg:space-y-8">
+          <SectionHeader
+            kicker="Scenarios"
+            title="Goals and tail events"
+            description="Model shocks alongside retirement and goal progress without crowding the primary table."
+          />
           <CrashSimulator />
-
-          {/* Retirement & Goals */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
             <RetirementPlanner />
             <GoalTracker />
           </div>
+        </section>
+
+        {/* —— Insights & planning: split runway on large screens —— */}
+        <div className="mb-16 grid grid-cols-1 gap-10 sm:mb-20 lg:mb-24 xl:grid-cols-2 xl:gap-12">
+          <section id="insights" className="scroll-mt-28 space-y-6">
+            <SectionHeader kicker="Optimize" title="Insights" description="Tax-aware hints and allocation nudges." />
+            <div className="space-y-6">
+              <OptimizationPanel />
+              <TaxHints />
+            </div>
+          </section>
+          <section id="planning" className="scroll-mt-28 space-y-6">
+            <SectionHeader kicker="Horizon" title="Planning" description="Backtests, FIRE, dividends, and rebalance math." />
+            <div className="space-y-6">
+              <BacktestPanel />
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <FIRECalculator />
+                <RebalancingCalculator />
+              </div>
+              <DividendTracker />
+            </div>
+          </section>
         </div>
 
-        {/* Phase 4: Insights & Optimization */}
-        <div id="insights" className="space-y-6 scroll-mt-28">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-            <h2 className="text-lg font-semibold text-[var(--color-text-secondary)]">Insights & Optimization</h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <OptimizationPanel />
-            <TaxHints />
-          </div>
-        </div>
-
-        {/* Phase 5: Advanced Planning */}
-        <div id="planning" className="space-y-6 scroll-mt-28">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-            <h2 className="text-lg font-semibold text-[var(--color-text-secondary)]">Advanced Planning</h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-          </div>
-
-          {/* Backtesting - Full Width */}
-          <BacktestPanel />
-
-          {/* FIRE & Rebalancing */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <FIRECalculator />
-            <RebalancingCalculator />
-          </div>
-
-          {/* Dividends */}
-          <DividendTracker />
-        </div>
-
-        {/* Phase 6: Alerts & Integrations */}
-        <div id="integrations" className="space-y-6 scroll-mt-28">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-            <h2 className="text-lg font-semibold text-[var(--color-text-secondary)]">Alerts & Integrations</h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-          </div>
-
-          {/* Custom Scenario - Full Width */}
+        <section id="integrations" className="scroll-mt-28 mb-16 space-y-6 sm:mb-20 lg:mb-24 lg:space-y-8">
+          <SectionHeader
+            kicker="Operations"
+            title="Alerts and brokers"
+            description="Connect data sources and keep the book within your guardrails."
+          />
           <ScenarioBuilder />
-
-          {/* Alerts & Broker */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
             <AlertCenter />
             <BrokerConnect />
           </div>
-        </div>
+        </section>
 
-        {/* Phase 7: ML & Developer */}
-        <div id="ai" className="space-y-6 scroll-mt-28">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-            <h2 className="text-lg font-semibold text-[var(--color-text-secondary)]">AI & Developer Tools</h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-          </div>
-
-          {/* ML Predictions & API */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <section id="ai" className="scroll-mt-28 mb-16 space-y-6 sm:mb-20 lg:mb-24">
+          <SectionHeader
+            kicker="Models & API"
+            title="Predictions and developer access"
+            description="Forward-looking views and structured exports for your own tooling."
+          />
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
             <PredictionPanel />
             <APIDocsPanel />
           </div>
-        </div>
+        </section>
 
-        {/* Phase 8: Global & Voice */}
-        <div id="global" className="space-y-6 scroll-mt-28">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-            <h2 className="text-lg font-semibold text-[var(--color-text-secondary)]">Global & Voice</h2>
-            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[var(--color-border)] to-transparent"></div>
-          </div>
-
-          {/* Real Estate - Full Width */}
+        <section id="global" className="scroll-mt-28 space-y-6 lg:space-y-8">
+          <SectionHeader
+            kicker="Global"
+            title="Currency, real assets, voice"
+            description="Cross-border assumptions and optional hands-free controls."
+          />
           <RealEstateTracker />
-
-          {/* Currency & Voice */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
             <CurrencySettings />
             <VoiceAssistant />
           </div>
-        </div>
+        </section>
       </main>
     </PullToRefresh>
   );
@@ -245,16 +229,12 @@ function Dashboard() {
 
 function Footer() {
   return (
-    <footer className="border-t border-[var(--color-border)] mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-[var(--color-text-secondary)]">
-            Portfolio Simulator — Professional-level financial planning at zero cost
-          </p>
-          <p className="text-xs text-[var(--color-text-secondary)] opacity-75">
-            Market data may be delayed. For educational purposes only.
-          </p>
-        </div>
+    <footer className="mt-auto border-t border-[var(--color-border)]">
+      <div className="page-shell flex flex-col items-start justify-between gap-4 px-4 py-8 sm:flex-row sm:items-center sm:px-6">
+        <p className="max-w-md text-sm text-[var(--color-text-secondary)]">
+          Portfolio Simulator — institutional-style analytics in the browser. Not investment advice.
+        </p>
+        <p className="text-xs text-[var(--color-text-secondary)]">Market data may be delayed.</p>
       </div>
     </footer>
   );
@@ -265,7 +245,7 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider>
         <PortfolioProvider>
-          <div className="min-h-screen flex flex-col pb-16 sm:pb-0">
+          <div className="flex min-h-screen flex-col pb-16 sm:pb-0">
             <Header />
             <SectionNav />
             <Dashboard />

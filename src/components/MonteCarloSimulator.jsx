@@ -150,7 +150,7 @@ export default function MonteCarloSimulator() {
                     {/* Expected Outcome */}
                     <div className="bg-[var(--color-bg-secondary)] rounded-lg p-4">
                         <p className="text-sm text-[var(--color-text-secondary)] mb-1">Expected Value ({years}yr)</p>
-                        <p className="text-2xl font-bold gradient-text">
+                        <p className="ui-display text-xl sm:text-2xl">
                             {formatCurrency(result.formatted.summary.expectedValue)}
                         </p>
                         <p className={`text-sm mt-1 ${result.formatted.summary.totalReturn >= 0 ? 'stat-positive' : 'stat-negative'}`}>

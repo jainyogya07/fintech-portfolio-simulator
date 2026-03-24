@@ -91,14 +91,13 @@ export default function AddAssetForm() {
 
     return (
         <div className="glass-card p-4 sm:p-6 animate-fadeIn">
-            <h2 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 flex items-center gap-2">
-                <svg className="w-5 h-5 text-[var(--color-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-                Add Stock
-            </h2>
+            <div className="mb-4 sm:mb-5">
+                <p className="ui-kicker mb-1">Position</p>
+                <h2 className="ui-section-title">Add holding</h2>
+                <p className="ui-section-desc mt-1">Search a symbol, size, and cost basis — we&apos;ll fetch a live quote.</p>
+            </div>
 
-            <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
                 {/* Symbol with autocomplete */}
                 <div className="relative">
                     <label htmlFor="symbol" className="block text-xs sm:text-sm font-medium text-[var(--color-text-secondary)] mb-1">
@@ -132,7 +131,7 @@ export default function AddAssetForm() {
                                     key={stock.symbol}
                                     type="button"
                                     onClick={() => selectStock(stock)}
-                                    className="w-full text-left px-3 py-2 hover:bg-[var(--color-primary)]/20 transition-colors"
+                                    className="w-full px-3 py-2 text-left transition-colors hover:bg-[var(--color-bg-primary)]"
                                 >
                                     <div className="font-bold text-sm">{stock.symbol}</div>
                                     <div className="text-xs text-[var(--color-text-secondary)]">{stock.name}</div>
@@ -177,7 +176,7 @@ export default function AddAssetForm() {
                             value={purchasePrice}
                             onChange={(e) => setPurchasePrice(e.target.value)}
                             placeholder="150.00"
-                            className="w-full pl-8"
+                            className="w-full !pl-8"
                             disabled={isSubmitting}
                             min="0.01"
                             step="0.01"
@@ -211,15 +210,15 @@ export default function AddAssetForm() {
             </form>
 
             {/* Quick Add - Popular Stocks */}
-            <div className="mt-4 pt-3 border-t border-[var(--color-border)]">
-                <div className="text-xs text-[var(--color-text-secondary)] mb-2">Quick Add</div>
-                <div className="flex flex-wrap gap-1.5">
+            <div className="mt-5 border-t border-[var(--color-border)] pt-4">
+                <div className="mb-2 text-xs font-medium uppercase tracking-wide text-[var(--color-text-secondary)]">Quick add</div>
+                <div className="flex flex-wrap gap-2">
                     {['AAPL', 'TSLA', 'MSFT', 'GOOGL', 'NVDA'].map(sym => (
                         <button
                             key={sym}
                             type="button"
                             onClick={() => quickAddStock(sym)}
-                            className="px-2.5 py-1 text-xs bg-[var(--color-bg-secondary)] hover:bg-[var(--color-primary)]/20 rounded-md transition-colors"
+                            className="rounded-md border border-[var(--color-border)] bg-[var(--color-bg-primary)] px-2.5 py-1 text-xs font-semibold tabular-nums text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-primary-light)] hover:bg-[var(--color-bg-secondary)]"
                         >
                             {sym}
                         </button>

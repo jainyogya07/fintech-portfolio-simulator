@@ -28,24 +28,27 @@ export default function FloatingActionButton({ onAddStock, onSettings }) {
             {isOpen && (
                 <div className="absolute bottom-16 right-0 flex flex-col gap-2 animate-fadeIn">
                     <button
+                        type="button"
                         onClick={() => handleAction(scrollToTop)}
-                        className="flex items-center gap-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] px-3 py-2 rounded-full shadow-lg"
+                        className="flex items-center gap-2 rounded-md border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-3 py-2 text-sm font-medium text-[var(--color-text-primary)] shadow-md"
                     >
-                        <span className="text-sm">📈 Add Stock</span>
+                        Jump to add
                     </button>
                     <button
-                        onClick={() => handleAction(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }))}
-                        className="flex items-center gap-2 bg-[var(--color-bg-secondary)] border border-[var(--color-border)] px-3 py-2 rounded-full shadow-lg"
+                        type="button"
+                        onClick={() => handleAction(() => document.getElementById('global')?.scrollIntoView({ behavior: 'smooth' }))}
+                        className="flex items-center gap-2 rounded-md border border-[var(--color-border)] bg-[var(--color-bg-secondary)] px-3 py-2 text-sm font-medium text-[var(--color-text-primary)] shadow-md"
                     >
-                        <span className="text-sm">🎤 Voice</span>
+                        Voice controls
                     </button>
                 </div>
             )}
 
             {/* Main FAB */}
             <button
+                type="button"
                 onClick={toggleMenu}
-                className={`w-12 h-12 rounded-full bg-[var(--color-primary)] text-white shadow-lg flex items-center justify-center transition-transform ${isOpen ? 'rotate-45' : ''}`}
+                className={`flex h-12 w-12 items-center justify-center rounded-md bg-[var(--color-primary)] text-white shadow-md transition-transform focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary-light)] ${isOpen ? 'rotate-45' : ''}`}
             >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

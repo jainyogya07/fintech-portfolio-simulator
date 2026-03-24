@@ -145,14 +145,14 @@ export default function RiskMetrics() {
                     </p>
                 </div>
 
-                {/* Expected Return */}
+                {/* Assumed Annual Return */}
                 <div className="bg-[var(--color-bg-secondary)] rounded-lg p-4">
-                    <p className="text-sm text-[var(--color-text-secondary)] mb-2">Expected Return</p>
+                    <p className="text-sm text-[var(--color-text-secondary)] mb-2">Assumed Annual Return</p>
                     <p className="text-2xl font-bold stat-positive">
                         {formatPercentage(expectedReturn)}
                     </p>
                     <p className="text-xs text-[var(--color-text-secondary)] mt-1">
-                        Based on market average
+                        Based on historical market average
                     </p>
                 </div>
 

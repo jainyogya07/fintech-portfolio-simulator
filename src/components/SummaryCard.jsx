@@ -26,34 +26,39 @@ export default function SummaryCard() {
     const isPositive = totalGain >= 0;
 
     return (
-        <div className="glass-card p-6 animate-fadeIn">
-            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                <svg className="w-5 h-5 text-[var(--color-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-                Portfolio Summary
-            </h2>
+        <div className="glass-card p-5 sm:p-6 animate-fadeIn">
+            <div className="mb-5 flex items-start justify-between gap-3">
+                <div>
+                    <p className="ui-kicker mb-1">Snapshot</p>
+                    <h2 className="ui-section-title">Summary</h2>
+                </div>
+                <div className="rounded-md border border-[var(--color-border)] bg-[var(--color-bg-primary)] p-1.5 text-[var(--color-primary)]" aria-hidden>
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                </div>
+            </div>
 
             <div className="space-y-6">
                 {/* Total Value */}
                 <div>
-                    <p className="text-sm text-[var(--color-text-secondary)] mb-1">Total Value</p>
-                    <p className="text-3xl font-bold gradient-text">
+                    <p className="mb-1 text-xs font-medium text-[var(--color-text-secondary)]">Total value</p>
+                    <p className="ui-display">
                         {formatCurrency(totalValue)}
                     </p>
                 </div>
 
                 {/* Gain/Loss */}
-                <div className="flex gap-6">
+                <div className="flex gap-8">
                     <div>
-                        <p className="text-sm text-[var(--color-text-secondary)] mb-1">Total Gain/Loss</p>
-                        <p className={`text-xl font-semibold ${isPositive ? 'stat-positive' : 'stat-negative'}`}>
+                        <p className="mb-1 text-xs font-medium text-[var(--color-text-secondary)]">Gain / loss</p>
+                        <p className={`ui-stat ${isPositive ? 'stat-positive' : 'stat-negative'}`}>
                             {isPositive ? '+' : ''}{formatCurrency(totalGain)}
                         </p>
                     </div>
                     <div>
-                        <p className="text-sm text-[var(--color-text-secondary)] mb-1">Return</p>
-                        <div className={`flex items-center gap-1 text-xl font-semibold ${isPositive ? 'stat-positive' : 'stat-negative'}`}>
+                        <p className="mb-1 text-xs font-medium text-[var(--color-text-secondary)]">Total Return</p>
+                        <div className={`flex items-center gap-1 ui-stat ${isPositive ? 'stat-positive' : 'stat-negative'}`}>
                             {isPositive ? (
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -69,14 +74,14 @@ export default function SummaryCard() {
                 </div>
 
                 {/* Stats Row */}
-                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[var(--color-border)]">
+                <div className="grid grid-cols-2 gap-4 border-t border-[var(--color-border)] pt-4">
                     <div>
-                        <p className="text-sm text-[var(--color-text-secondary)]">Holdings</p>
-                        <p className="text-lg font-semibold">{holdings.length}</p>
+                        <p className="text-xs font-medium text-[var(--color-text-secondary)]">Holdings</p>
+                        <p className="mt-0.5 text-sm font-semibold tabular-nums">{holdings.length}</p>
                     </div>
                     <div>
-                        <p className="text-sm text-[var(--color-text-secondary)]">Last Updated</p>
-                        <p className="text-sm font-medium">
+                        <p className="text-xs font-medium text-[var(--color-text-secondary)]">Updated</p>
+                        <p className="mt-0.5 text-sm font-medium tabular-nums">
                             {lastUpdated
                                 ? lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                                 : 'Never'
