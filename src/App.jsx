@@ -38,6 +38,35 @@ import ErrorBoundary from './components/ErrorBoundary';
 import SectionHeader from './components/SectionHeader';
 import './index.css';
 
+function CodeHypeBadge({ className = '' }) {
+  return (
+    <a
+      href="https://www.codehype.ai/product/portfolio-simulator-5ba4aa?utm_source=codehype_badge"
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-block transition-transform duration-200 hover:scale-105 active:scale-95 ${className}`}
+      aria-label="Featured on CodeHype"
+    >
+      <img
+        src="https://www.codehype.ai/badges/portfolio-simulator-5ba4aa.svg?variant=find-us&v=20"
+        alt="Featured on CodeHype"
+        width="180"
+        height="65"
+        loading="lazy"
+        decoding="async"
+        style={{
+          display: 'inline-block',
+          border: 0,
+          width: '100%',
+          maxWidth: '180px',
+          height: 'auto',
+          maxHeight: '65px',
+        }}
+      />
+    </a>
+  );
+}
+
 function Header() {
   const { refreshPrices, isRefreshing, lastUpdated } = usePortfolio();
 
@@ -62,6 +91,21 @@ function Header() {
         </div>
 
         <div className="flex shrink-0 items-center gap-2">
+          <a
+            href="https://www.codehype.ai/product/portfolio-simulator-5ba4aa?utm_source=codehype_badge"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex items-center transition-transform hover:scale-105"
+            title="Featured on CodeHype"
+          >
+            <img
+              src="https://www.codehype.ai/badges/portfolio-simulator-5ba4aa.svg?variant=find-us&v=20"
+              alt="Featured on CodeHype"
+              width="140"
+              height="36"
+              style={{ display: 'inline-block', border: 0, height: '32px', width: 'auto' }}
+            />
+          </a>
           {lastUpdated ? (
             <span className="hidden text-xs tabular-nums text-[var(--color-text-secondary)] sm:inline">
               {lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -105,6 +149,7 @@ function Dashboard() {
             kicker="Workbench"
             title="Portfolio"
             description="Add positions, review exposure, then drill into risk and scenarios below."
+            action={<CodeHypeBadge />}
           />
           <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12 lg:gap-8">
             <div className="space-y-6 lg:col-span-4 lg:sticky lg:top-28">
@@ -230,11 +275,16 @@ function Dashboard() {
 function Footer() {
   return (
     <footer className="mt-auto border-t border-[var(--color-border)]">
-      <div className="page-shell flex flex-col items-start justify-between gap-4 px-4 py-8 sm:flex-row sm:items-center sm:px-6">
-        <p className="max-w-md text-sm text-[var(--color-text-secondary)]">
-          Portfolio Simulator — institutional-style analytics in the browser. Not investment advice.
-        </p>
-        <p className="text-xs text-[var(--color-text-secondary)]">Market data may be delayed.</p>
+      <div className="page-shell flex flex-col items-center justify-between gap-6 px-4 py-8 sm:flex-row sm:px-6">
+        <div className="space-y-1 text-center sm:text-left">
+          <p className="max-w-md text-sm text-[var(--color-text-secondary)]">
+            Portfolio Simulator — institutional-style analytics in the browser. Not investment advice.
+          </p>
+          <p className="text-xs text-[var(--color-text-secondary)]">Market data may be delayed.</p>
+        </div>
+        <div className="flex shrink-0 items-center justify-center">
+          <CodeHypeBadge />
+        </div>
       </div>
     </footer>
   );
